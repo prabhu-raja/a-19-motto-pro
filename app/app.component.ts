@@ -11,8 +11,8 @@ import { User } from './auth-form/auth-form.interface';
         <h3>Create account</h3>
         <button type="submit">Join us</button>
       </auth-form>
-      <auth-form 
-        (submitted)="loginUser($event)">
+      <!-- -->
+      <auth-form (submitted)="loginUser($event)">
         <h3>Login</h3>
         <auth-remember (checked)="rememberUser($event)"></auth-remember>
         <button type="submit">Login</button>
@@ -21,7 +21,7 @@ import { User } from './auth-form/auth-form.interface';
   `
 })
 export class AppComponent {
-  ememberMe: boolean = false;
+  rememberMe: boolean = false;
 
   createUser(user: User) {
     console.log('Create account', user);
@@ -33,6 +33,7 @@ export class AppComponent {
 
   rememberUser(rmb: boolean) {
     console.log('✅ value', rmb);
+    this.rememberMe = rmb;
   }
 
 }
