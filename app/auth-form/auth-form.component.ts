@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, ContentChild, AfterContentInit } from '@angular/core';
+import { Component, Output, EventEmitter, ContentChildren, QueryList, AfterContentInit } from '@angular/core';
 
 import { AuthRemeberComponent } from "./auth-remember.component";
 import { User } from './auth-form.interface';
@@ -33,15 +33,20 @@ import { User } from './auth-form.interface';
 export class AuthFormComponent implements AfterContentInit {
   showRememberMsg: boolean = false;
 
-  @ContentChild(AuthRemeberComponent) ccRemeber: AuthRemeberComponent;
+  @ContentChildren(AuthRemeberComponent) ccRemeber: QueryList<AuthRemeberComponent>;
 
   @Output() 
   submitted: EventEmitter<User> = new EventEmitter<User>();
 
   ngAfterContentInit() {
     if(this.ccRemeber) {
-      this.ccRemeber.checked
+      console.log('dd', this.ccRemeber); 
+      this.ccRemeber.forEach((itm) => {
+        itm.checked
           .subscribe((chkd: boolean) => this.showRememberMsg = chkd);
+      })
+      // this.ccRemeber.checked
+      //     .subscribe((chkd: boolean) => this.showRememberMsg = chkd);
     }
   }
 
