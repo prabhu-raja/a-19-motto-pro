@@ -1,7 +1,10 @@
-import { Component, Output, EventEmitter, 
-          ViewChildren, AfterViewInit,
-          ContentChildren,  AfterContentInit, 
-          QueryList, ChangeDetectorRef } from '@angular/core';
+import { 
+  Component, Output, EventEmitter, 
+  ViewChild, ElementRef,
+  ViewChildren, AfterViewInit,
+  ContentChildren,  AfterContentInit, 
+  QueryList, ChangeDetectorRef 
+} from '@angular/core';
 
 import { AuthMessageComponent } from "./auth-message.component";
 import { AuthRemeberComponent } from "./auth-remember.component";
@@ -15,7 +18,7 @@ import { User } from './auth-form.interface';
         <ng-content select="h3"></ng-content>
         <label>
           Email address
-          <input type="email" name="email" ngModel>
+          <input type="email" name="email" ngModel #refEmail>
         </label>
         <label>
           Password
@@ -24,12 +27,6 @@ import { User } from './auth-form.interface';
 
         <!--Remember Starts -->
         <ng-content select="auth-remember"></ng-content>
-        <auth-message 
-          [style.display]="(showRememberMsg ? 'inherit' : 'none' )">
-        </auth-message>
-        <auth-message 
-          [style.display]="(showRememberMsg ? 'inherit' : 'none' )">
-        </auth-message>
         <auth-message 
           [style.display]="(showRememberMsg ? 'inherit' : 'none' )">
         </auth-message>
@@ -43,6 +40,8 @@ import { User } from './auth-form.interface';
 export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   showRememberMsg: boolean = false;
 
+  @ViewChild('refEmail') vcEmail: ElementRef;
+
   @ViewChildren(AuthMessageComponent) vcMsg: QueryList<AuthMessageComponent>;
 
   @ContentChildren(AuthRemeberComponent) ccRemeber: QueryList<AuthRemeberComponent>;
@@ -55,6 +54,7 @@ export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.vcEmail.nativeElement.setAttribute('placeholder', 'Enter email id💌')
     // setTimeout(() => {
     //   this.vcMsg.days = 8;
     // });
