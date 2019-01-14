@@ -1,5 +1,8 @@
-import { Component, Output, EventEmitter, ContentChildren, QueryList, AfterContentInit } from '@angular/core';
+import { Component, Output, EventEmitter, 
+          ViewChild, AfterViewInit,
+          ContentChildren, QueryList, AfterContentInit } from '@angular/core';
 
+import { AuthMessageComponent } from "./auth-message.component";
 import { AuthRemeberComponent } from "./auth-remember.component";
 import { User } from './auth-form.interface';
 
@@ -20,9 +23,9 @@ import { User } from './auth-form.interface';
 
         <!--Remember Starts -->
         <ng-content select="auth-remember"></ng-content>
-        <div *ngIf="showRememberMsg">
-          You will be loggedin for 30 days🥰
-        </div>
+        <auth-message 
+          [style.display]="(showRememberMsg ? 'inherit' : 'none' )">
+        </auth-message>
         <!--Remember Starts -->
 
         <ng-content select="button"></ng-content>
@@ -30,17 +33,23 @@ import { User } from './auth-form.interface';
     </div>
   `
 })
-export class AuthFormComponent implements AfterContentInit {
+export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   showRememberMsg: boolean = false;
+
+  @ViewChild(AuthMessageComponent) vcMsg: AuthMessageComponent;
 
   @ContentChildren(AuthRemeberComponent) ccRemeber: QueryList<AuthRemeberComponent>;
 
   @Output() 
   submitted: EventEmitter<User> = new EventEmitter<User>();
 
+  ngAfterViewInit() {
+    //this.vcMsg.days = 8;
+  }
+
   ngAfterContentInit() {
+    this.vcMsg.days = 8;
     if(this.ccRemeber) {
-      console.log('dd', this.ccRemeber); 
       this.ccRemeber.forEach((itm) => {
         itm.checked
           .subscribe((chkd: boolean) => this.showRememberMsg = chkd);
