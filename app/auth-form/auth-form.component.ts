@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, 
           ViewChild, AfterViewInit,
-          ContentChildren, QueryList, AfterContentInit } from '@angular/core';
+          ContentChildren,  AfterContentInit, 
+          QueryList, ChangeDetectorRef } from '@angular/core';
 
 import { AuthMessageComponent } from "./auth-message.component";
 import { AuthRemeberComponent } from "./auth-remember.component";
@@ -43,12 +44,21 @@ export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   @Output() 
   submitted: EventEmitter<User> = new EventEmitter<User>();
 
+  constructor(private cdr: ChangeDetectorRef) {
+
+  }
+
   ngAfterViewInit() {
-    //this.vcMsg.days = 8;
+    // setTimeout(() => {
+    //   this.vcMsg.days = 8;
+    // });
+    // Instead of using setTimeOut use ChangedetectorRef
+    this.vcMsg.days = 8;
+    this.cdr.detectChanges();
   }
 
   ngAfterContentInit() {
-    this.vcMsg.days = 8;
+    // this.vcMsg.days = 8;
     if(this.ccRemeber) {
       this.ccRemeber.forEach((itm) => {
         itm.checked
