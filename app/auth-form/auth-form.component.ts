@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, 
-          ViewChild, AfterViewInit,
+          ViewChildren, AfterViewInit,
           ContentChildren,  AfterContentInit, 
           QueryList, ChangeDetectorRef } from '@angular/core';
 
@@ -27,6 +27,12 @@ import { User } from './auth-form.interface';
         <auth-message 
           [style.display]="(showRememberMsg ? 'inherit' : 'none' )">
         </auth-message>
+        <auth-message 
+          [style.display]="(showRememberMsg ? 'inherit' : 'none' )">
+        </auth-message>
+        <auth-message 
+          [style.display]="(showRememberMsg ? 'inherit' : 'none' )">
+        </auth-message>
         <!--Remember Starts -->
 
         <ng-content select="button"></ng-content>
@@ -37,7 +43,7 @@ import { User } from './auth-form.interface';
 export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   showRememberMsg: boolean = false;
 
-  @ViewChild(AuthMessageComponent) vcMsg: AuthMessageComponent;
+  @ViewChildren(AuthMessageComponent) vcMsg: QueryList<AuthMessageComponent>;
 
   @ContentChildren(AuthRemeberComponent) ccRemeber: QueryList<AuthRemeberComponent>;
 
@@ -53,7 +59,9 @@ export class AuthFormComponent implements AfterContentInit, AfterViewInit {
     //   this.vcMsg.days = 8;
     // });
     // Instead of using setTimeOut use ChangedetectorRef
-    this.vcMsg.days = 8;
+    this.vcMsg.forEach((itm) => {
+      itm.days = 90;
+    })
     this.cdr.detectChanges();
   }
 
