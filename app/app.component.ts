@@ -30,10 +30,10 @@ export class AppComponent implements AfterContentInit {
 
  
   ngAfterContentInit() {
-    console.log('ACI :', 'ACI');
 
     const authFormFactory = this.cfResolver.resolveComponentFactory(AuthFormComponent);
     const cmpt = this.vcEntry.createComponent(authFormFactory);
+    cmpt.instance.title = 'Create an Account';
   }
 
   loginUser(user: User) {

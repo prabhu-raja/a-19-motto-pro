@@ -1,81 +1,36 @@
-import { 
-  Component, Output, EventEmitter, 
-  ViewChild, ElementRef,
-  ViewChildren, AfterViewInit,
-  ContentChildren,  AfterContentInit, 
-  QueryList, ChangeDetectorRef 
-} from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
-import { AuthMessageComponent } from "./auth-message.component";
-import { AuthRemeberComponent } from "./auth-remember.component";
 import { User } from './auth-form.interface';
 
 @Component({
   selector: 'auth-form',
+  styles: [`
+    .email { border-color: #9f72e6; }
+  `],
   template: `
     <div>
       <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
-        <ng-content select="h3"></ng-content>
+        <h3>{{ title }}</h3>
         <label>
           Email address
-          <input type="email" name="email" ngModel #refEmail>
+          <input type="email" name="email" ngModel #email>
         </label>
         <label>
           Password
           <input type="password" name="password" ngModel>
         </label>
-
-        <!--Remember Starts -->
-        <ng-content select="auth-remember"></ng-content>
-        <auth-message 
-          [style.display]="(showRememberMsg ? 'inherit' : 'none' )">
-        </auth-message>
-        <!--Remember Starts -->
-
-        <ng-content select="button"></ng-content>
+        <button type="submit">
+          {{ title }}
+        </button>
       </form>
     </div>
   `
 })
-export class AuthFormComponent implements AfterContentInit, AfterViewInit {
-  showRememberMsg: boolean = false;
+export class AuthFormComponent {
 
-  @ViewChild('refEmail') vcEmail: ElementRef;
+  title = 'Login';
 
-  @ViewChildren(AuthMessageComponent) vcMsg: QueryList<AuthMessageComponent>;
-
-  @ContentChildren(AuthRemeberComponent) ccRemeber: QueryList<AuthRemeberComponent>;
-
-  @Output() 
-  submitted: EventEmitter<User> = new EventEmitter<User>();
-
-  constructor(private cdr: ChangeDetectorRef) {
-
-  }
-
-  ngAfterViewInit() {
-    this.vcEmail.nativeElement.setAttribute('placeholder', 'Enter email id💌')
-    // setTimeout(() => {
-    //   this.vcMsg.days = 8;
-    // });
-    // Instead of using setTimeOut use ChangedetectorRef
-    this.vcMsg.forEach((itm) => {
-      itm.days = 90;
-    })
-    this.cdr.detectChanges();
-  }
-
-  ngAfterContentInit() {
-    // this.vcMsg.days = 8;
-    if(this.ccRemeber) {
-      this.ccRemeber.forEach((itm) => {
-        itm.checked
-          .subscribe((chkd: boolean) => this.showRememberMsg = chkd);
-      })
-      // this.ccRemeber.checked
-      //     .subscribe((chkd: boolean) => this.showRememberMsg = chkd);
-    }
-  }
+  @Output() submitted: EventEmitter<User> = new EventEmitter<User>();
 
   onSubmit(value: User) {
     this.submitted.emit(value);
