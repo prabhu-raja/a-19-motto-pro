@@ -15,6 +15,8 @@ import { User } from './auth-form/auth-form.interface';
       </auth-form>
       <auth-form 
         (submitted)="loginUser($event)">
+        <h2>Test from login</h2>
+
         <h3>Login</h3>
         <auth-remember
           (checked)="rememberUser($event)">
