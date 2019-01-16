@@ -29,6 +29,8 @@ export class AppComponent implements AfterContentInit {
   ngAfterContentInit() {
     const authFormFactory = this.cfr.resolveComponentFactory(AuthFormComponent);
     const cmpt = this.vcEntry.createComponent(authFormFactory);
+    //
+    cmpt.instance.title = 'Create an Account';
   }
   
 
