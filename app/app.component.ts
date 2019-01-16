@@ -31,6 +31,13 @@ export class AppComponent implements AfterContentInit {
     const cmpt = this.vcEntry.createComponent(authFormFactory);
     //
     cmpt.instance.title = 'Create an Account';
+    /*
+    cmpt.instance.submitted
+      .subscribe((data: User) => {
+        console.log(data);
+      });
+    */
+   cmpt.instance.submitted.subscribe(this.loginUser);
   }
   
 
