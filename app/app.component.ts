@@ -1,4 +1,6 @@
-import { Component, ViewChild, ViewContainerRef, ComponentFactoryResolver, AfterContentInit } from '@angular/core';
+import { 
+  Component, ComponentRef,
+  ViewChild, ViewContainerRef, ComponentFactoryResolver, AfterContentInit } from '@angular/core';
 
 import { AuthFormComponent } from "./auth-form/auth-form.component";
 import { User } from './auth-form/auth-form.interface';
@@ -16,32 +18,35 @@ import { User } from './auth-form/auth-form.interface';
         </button>
       </auth-form>
       -->
+      <button (click)="destroyCmpt()">destroy🔥</button>
       <div #entry></div>
     </div>
   `
 })
 export class AppComponent implements AfterContentInit {
-
+  cmpt: ComponentRef<AuthFormComponent>;
   @ViewChild('entry', {read: ViewContainerRef}) vcEntry: ViewContainerRef;
 
-  constructor(private cfr: ComponentFactoryResolver) { }
+  constructor(
+    private cfr: ComponentFactoryResolver) { }
 
   ngAfterContentInit() {
     const authFormFactory = this.cfr.resolveComponentFactory(AuthFormComponent);
-    const cmpt = this.vcEntry.createComponent(authFormFactory);
+    this.cmpt = this.vcEntry.createComponent(authFormFactory);
     //
-    cmpt.instance.title = 'Create an Account';
+    this.cmpt.instance.title = 'Create an Account';
     /*
     cmpt.instance.submitted
       .subscribe((data: User) => {
         console.log(data);
       });
     */
-   cmpt.instance.submitted.subscribe(this.loginUser);
+   this.cmpt.instance.submitted.subscribe(this.loginUser);
   }
   
-
-
+  destroyCmpt() {
+    this.cmpt.destroy();
+  }
 
   loginUser(user: User) {
     console.log('Login', user);
