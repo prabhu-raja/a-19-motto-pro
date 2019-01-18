@@ -20,11 +20,15 @@ import { User } from './auth-form/auth-form.interface';
       -->
       <button (click)="destroyCmpt()">destroy🔥</button>
       <div #entry></div>
-    </div>
+      <button (click)="moveCmpt()">Move</button>
+      <p>happy</p>
+   
   `
 })
 export class AppComponent implements AfterContentInit {
   cmpt: ComponentRef<AuthFormComponent>;
+  cmpt2: ComponentRef<AuthFormComponent>;
+
   @ViewChild('entry', {read: ViewContainerRef}) vcEntry: ViewContainerRef;
 
   constructor(
@@ -32,6 +36,8 @@ export class AppComponent implements AfterContentInit {
 
   ngAfterContentInit() {
     const authFormFactory = this.cfr.resolveComponentFactory(AuthFormComponent);
+    this.cmpt2 = this.vcEntry.createComponent(authFormFactory);
+    this.cmpt2.instance.title = 'Im 2';
     this.cmpt = this.vcEntry.createComponent(authFormFactory);
     //
     this.cmpt.instance.title = 'Create an Account';
@@ -46,6 +52,10 @@ export class AppComponent implements AfterContentInit {
   
   destroyCmpt() {
     this.cmpt.destroy();
+  }
+
+  moveCmpt() {
+    this.vcEntry.move(this.cmpt.hostView, 0);
   }
 
   loginUser(user: User) {
