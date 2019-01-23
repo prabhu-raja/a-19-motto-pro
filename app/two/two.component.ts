@@ -1,34 +1,32 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'example-two',
-  encapsulation: ViewEncapsulation.Native,
+  changeDetection: ChangeDetectionStrategy.Default,
   styles: [`
     .example-two {
-      background: blue;
       font-size: 19px;
-      color: black;
       margin-bottom: 10px;
-      padding: 5px 7px;
     }
-    
-    .example-one {
-      border: 3px solid red;
-      font-size: 14px;
-      color: red;
-      padding: 5px 7px;
-    }
-    
   `],
   template: `
     <div class="example-two">
-      Example Two
-    </div>
-    <div class="example-one">
-      Example One!
+      <p>Two</p>
+      <h4>{{ user.name }}</h4>
+      <h5>{{ user.age }} years old</h5>
+      {{ user.location }} <br />
+      {{ user.email }}
+      
+      <button (click)="update()">Internal update</button>
+      <p>* should update</p>
     </div>
   `
 })
 export class ExampleTwoComponent {
+  @Input()
+  user;
 
+  update() {
+    this.user.name = 'Scott Raynor';
+  }
 }
