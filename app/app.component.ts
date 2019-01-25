@@ -12,6 +12,19 @@ import { Component } from '@angular/core';
           placeholder="Enter your 16-digit card number"
           credit-card>
       </label>
+
+      <label 
+        class="tooltipcontainer"
+        tooltip="3 digits, back of your card" #myTooltip="global">
+        Enter your security code 
+        
+        <span
+          (mouseover)="myTooltip.show()" 
+          (mouseout)="myTooltip.hide()">
+          (?)
+        </span>
+        <input type="text">
+      </label>
     </div>
   `
 })

@@ -8,7 +8,7 @@ export class CreditCardDirective {
     @HostBinding('style.border')
     myBorder: string;
     
-    @HostListener('input',['$event'])
+    @HostListener('input', ['$event'])
     myKeydown(evt: KeyboardEvent) {
         const ip = evt.target as HTMLInputElement;
         //
