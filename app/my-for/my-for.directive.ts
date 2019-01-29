@@ -6,7 +6,14 @@ import { Directive, Input, ViewContainerRef, TemplateRef } from "@angular/core";
 export class MyForDirective {
     @Input()
     set myForOf(coll) {
-        console.log(coll);
+        this.vcRef.clear();
+        coll.forEach((item, index) => {
+            this.vcRef.createEmbeddedView(this.tRef, {
+                $implicit: item,
+                index,
+                age: item.age
+            })
+        });
     }
 
     constructor(private vcRef: ViewContainerRef, private tRef: TemplateRef<any>) { }

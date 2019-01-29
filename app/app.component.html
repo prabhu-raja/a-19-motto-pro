@@ -39,13 +39,13 @@
     <p>* and sd myFor</p>
     <div>
         <ul>
-            <li *myFor="let item of items; let i=index">
-                {{i}} Member  -  {{item.name}}
+            <li *myFor="let item of items; let i=index, let a=age">
+                {{i}} Member  -  {{item.name}} - {{a}}
             </li>
             <br>
-            <template myFor [myForOf]="items" let-item let-i="index">
+            <template myFor [myForOf]="items" let-item let-i="index" let-a="age">
                 <li>
-                    {{i}} Member  -  {{item.name}}
+                    {{i}} Member  -  {{item.name}} -  {{a}}
                 </li>
             </template>
         </ul>

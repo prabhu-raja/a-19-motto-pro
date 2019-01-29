@@ -18,4 +18,14 @@ export class AppComponent {
     age: 41,
     location: 'California'
   }];
+
+  constructor() {
+    setTimeout(() => {
+      this.items = [...this.items, {
+        name: 'Matt Skiba', 
+        age: 40, 
+        location: 'California'
+      }]
+    }, 2000);
+  }
 }
