@@ -1,32 +1,33 @@
-import { Directive, OnInit, Input, ElementRef } from "@angular/core";
+import { Input, Directive, ElementRef, OnInit } from '@angular/core';
 
 @Directive({
-    selector: '[tooltip]',
-    exportAs: 'global'
+  selector: '[tooltip]',
+  exportAs: 'tooltip'
 })
 export class TooltipDirective implements OnInit {
+  tooltipElement = document.createElement('div');
+  visible = false;
 
-    tooltipElement = document.createElement('div');
-    visible: boolean = false;
+  @Input()
+  set tooltip(value) {
+    this.tooltipElement.textContent = value;
+  }
 
-    @Input()
-    set tooltip(val: string) {
-        this.tooltipElement.textContent = val;
-    }
+  hide() {
+    this.tooltipElement.classList.remove('tooltip--active');
+  }
 
-    hide() {
-        this.tooltipElement.classList.remove('tooltip--active');
-    }
-    
-    show() {
-        this.tooltipElement.classList.add('tooltip--active');
-    }
+  show() {
+    this.tooltipElement.classList.add('tooltip--active');
+  }
 
-    constructor(private elmRef: ElementRef) { }
+  constructor(
+    private element: ElementRef
+  ) {}
 
-    ngOnInit() {
-        this.tooltipElement.className = 'tooltip';
-        this.elmRef.nativeElement.appendChild(this.tooltipElement);
-        this.elmRef.nativeElement.classList.add('tooltip-container');
-    }
+  ngOnInit() {
+    this.tooltipElement.className = 'tooltip';
+    this.element.nativeElement.appendChild(this.tooltipElement);
+    this.element.nativeElement.classList.add('tooltip-container');
+  }
 }

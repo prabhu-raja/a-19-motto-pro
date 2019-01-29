@@ -2,30 +2,29 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  template: `
+    <div>
+      <label>
+        Credit Card Number
+        <input 
+          name="credit-card" 
+          type="text"
+          placeholder="Enter your 16-digit card number"
+          credit-card>
+      </label>
+      <label 
+        tooltip="3 digits, back of your card"
+        #myTooltip="tooltip">
+        Enter your security code 
+        <span
+          (mouseover)="myTooltip.show()"
+          (mouseout)="myTooltip.hide()">
+          (?)
+        </span>
+        <input type="text">
+      </label>
+    </div>
+  `
 })
 export class AppComponent {
-  items = [{
-    name: 'Mark Hoppus',
-    age: 44,
-    location: 'California'
-  },{
-    name: 'Tom Delonge',
-    age: 41,
-    location: 'California'
-  },{
-    name: 'Travis Barker',
-    age: 41,
-    location: 'California'
-  }];
-
-  constructor() {
-    setTimeout(() => {
-      this.items = [...this.items, {
-        name: 'Matt Skiba', 
-        age: 40, 
-        location: 'California'
-      }]
-    }, 2000);
-  }
 }

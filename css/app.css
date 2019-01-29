@@ -27,7 +27,7 @@ ol {
   padding: 0;
 }
 a {
-  color: #9f72e6;
+  color: #a0aa74;
   text-decoration: none;
 }
 input,
@@ -50,7 +50,7 @@ label {
 }
 button {
   cursor: pointer;
-  background: #9f72e6;
+  background: #a0aa74;
   border: 0;
   border-radius: 2px;
   padding: 5px 10px;
@@ -141,7 +141,7 @@ h3 {
   display: block;
 }
 span {
-  color: #9f72e6;
+  color: #a0aa74;
   text-decoration: underline;
   font-size: 12px;
   font-weight: bold;
