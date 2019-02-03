@@ -1,12 +1,4 @@
-<a 
-    [routerLink]="['', 
-        {
-            outlets:{ 
-                        pane: ['message', message.id] 
-                    }
-        }]"
-    routerLinkActive="active" 
-    class="mail-item">
+<a class="mail-item" (click)="navigateToMessage()">
     <h3>
       {{ message.from }}
       <span>{{ message.timestamp | date:'shortTime' }}</span>
