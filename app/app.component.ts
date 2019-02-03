@@ -23,7 +23,9 @@ import 'rxjs/add/operator/filter';
             Trash
           </a>
         </nav>
+
         <mail-app></mail-app>
+        
       </div>
     </div>
   `
