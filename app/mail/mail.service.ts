@@ -12,7 +12,14 @@ export class MailService {
 
     getFolder(folderName: string): Observable<Mail[]> {
         return this.http
-        .get(`/api/messages?folder=${folderName}`)
+            .get(`/api/messages?folder=${folderName}`)
             .map(resp => resp.json());
+    }
+
+    getMessageById(messageId: string): Observable<Mail> {
+        return this.http
+            .get(`/api/messages/${messageId}`)
+            .map(resp => resp.json());
+
     }
 }

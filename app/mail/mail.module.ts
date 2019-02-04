@@ -9,6 +9,7 @@ import { MailViewComponent } from "./components/mail-view/mail-view.component";
 
 import { MailService } from "./mail.service";
 import { MailFolderResolve } from "./containers/mail-folder/mail-folder.resolve";
+import { MailViewResolve } from "./components/mail-view/mail-view.resolve";
 
 
 export const ROUTES: Routes = [
@@ -22,7 +23,10 @@ export const ROUTES: Routes = [
   {
     path: 'message/:mid',
     component: MailViewComponent,
-    outlet: 'pane'
+    outlet: 'pane',
+    resolve: {
+      propMsg: MailViewResolve
+    }
   }
 ];
 
@@ -39,7 +43,8 @@ export const ROUTES: Routes = [
   ],
   providers: [
     MailService,
-    MailFolderResolve
+    MailFolderResolve,
+    MailViewResolve
   ],
   exports: [
     MailAppComponent

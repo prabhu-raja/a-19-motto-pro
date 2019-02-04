@@ -12,9 +12,7 @@ export class MailItemComponent {
   @Input()
   message: Mail;
 
-  constructor(private router: Router) {
-
-  }
+  constructor(private router: Router) { }
 
   navigateToMessage() {
     this.router.navigate(['',
