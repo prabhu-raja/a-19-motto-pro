@@ -10,6 +10,7 @@ export class MailFolderResolve implements Resolve<Mail[]> {
     constructor(private mailService: MailService) { }
 
     resolve(ars: ActivatedRouteSnapshot) {
+        debugger;
         console.log('mm', ars);
         return this.mailService.getFolder(ars.params.pname);
     }

@@ -13,21 +13,28 @@ import { MailViewResolve } from "./components/mail-view/mail-view.resolve";
 
 
 export const ROUTES: Routes = [
-  { 
-    path: 'folder/:pname',
-    component: MailFolderComponent,
-    resolve: {
-      propMessages: MailFolderResolve
-    }
-  },
   {
-    path: 'message/:mid',
-    component: MailViewComponent,
-    outlet: 'pane',
-    resolve: {
-      propMsg: MailViewResolve
-    }
+    path: 'mail',
+    component: MailAppComponent,
+    children: [
+      { 
+        path: 'folder/:pname',
+        component: MailFolderComponent,
+        resolve: {
+          propMessages: MailFolderResolve
+        }
+      },
+      {
+        path: 'message/:mid',
+        component: MailViewComponent,
+        outlet: 'pane',
+        resolve: {
+          propMsg: MailViewResolve
+        }
+      }
+    ]
   }
+  
 ];
 
 @NgModule({
